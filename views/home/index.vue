@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import {getMenu} from '../../api/data'
+
 export default {
   name: 'home',
   data(){
@@ -137,13 +139,16 @@ export default {
     }
   },
   mounted() {
-    this.$http.get('/user?ID=12345')
-    .then(function (response) {
-      console.log(response)
+    getMenu().then(res =>{
+      console.log(res)
     })
-    .catch(function (error){
-      console.log(error)
-    })
+    // this.$http.get('/user?ID=12345')
+    // .then(function (response) {
+    //   console.log(response)
+    // })
+    // .catch(function (error){
+    //   console.log(error)
+    // })
   }
 }
 </script>

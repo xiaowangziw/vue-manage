@@ -46,7 +46,8 @@
 </template>
 
 <script>
-import {getMenu} from '../../api/data'
+import {getData} from '../../api/data'
+
 
 export default {
   name: 'home',
@@ -139,8 +140,15 @@ export default {
     }
   },
   mounted() {
-    getMenu().then(res =>{
-      console.log(res)
+    getData().then(res =>{
+      console.log('res',res)
+      // if (res.data.code === 20000){
+      //   this.tableData = res.data.data.tableData
+      // }
+      const {code,data} = res.data
+      if (code === 20000){
+        this.tableData = data.tableData
+      }
     })
     // this.$http.get('/user?ID=12345')
     // .then(function (response) {

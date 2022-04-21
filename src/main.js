@@ -4,6 +4,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/less/index.less'
 
+import '../api/mock'
+
 import router from '../router'
 import store from '../store'
 import http from 'axios'

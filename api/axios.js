@@ -33,7 +33,7 @@ class HttpRequest {
         instance.interceptors.response.use(function (response){
             console.log(response,'response')
             //对相应数据做些什么
-            return config
+            return response
         }, function (error){
             console.log(error,'error')
             //对响应错误做些什么

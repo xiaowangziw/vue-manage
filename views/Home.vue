@@ -1,6 +1,8 @@
 <template>
     <el-container style="height: 100%">
-        <el-aside width="auto">Aside</el-aside>
+        <el-aside width="auto">
+          <aside-component></aside-component>
+        </el-aside>
         <el-container>
             <el-header>Header</el-header>
             <el-main>Main</el-main>
@@ -9,8 +11,12 @@
 </template>
 
 <script>
+import AsideComponent from "@/components/AsideComponent";
 export default {
     name: 'Home',
+    components: {
+      AsideComponent
+    },
     data(){
         return{}
     }

@@ -4,7 +4,9 @@
           <aside-component></aside-component>
         </el-aside>
         <el-container>
-            <el-header>Header</el-header>
+            <el-header>
+              <header-component></header-component>
+            </el-header>
             <el-main>
               <router-view></router-view>
             </el-main>
@@ -14,10 +16,12 @@
 
 <script>
 import AsideComponent from "@/components/AsideComponent";
+import HeaderComponent from "@/components/HeaderComponent";
 export default {
     name: 'Home',
     components: {
-      AsideComponent
+      AsideComponent,
+      HeaderComponent
     },
     data(){
         return{}

@@ -20,7 +20,7 @@ import AsideComponent from "@/components/AsideComponent";
 import HeaderComponent from "@/components/HeaderComponent";
 import TagComponent from "@/components/TagComponent";
 export default {
-    name: 'Home',
+    name: 'Main',
     components: {
       AsideComponent,
       HeaderComponent,

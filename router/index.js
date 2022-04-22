@@ -35,7 +35,12 @@ const routes = [
                 component:() => import('../views/other/PageTwo')
             },
         ]
-    }
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component:() => import('../views/login/login.vue')
+    },
 
 ]
 const router  = new VueRouter({

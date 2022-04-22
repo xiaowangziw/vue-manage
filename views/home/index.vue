@@ -36,10 +36,16 @@
           </div>
         </el-card>
       </div>
-      <el-card style="height: 280px;"></el-card>
+      <el-card style="height: 280px;">
+        <div style="height: 280px;" ref="echarts"></div>
+      </el-card>
       <div class="graph">
-        <el-card style="height: 260px"></el-card>
-        <el-card style="height: 260px"></el-card>
+        <el-card style="height: 260px">
+          <div style="height: 240px;" ref="userEcharts"></div>
+        </el-card>
+        <el-card style="height: 260px">
+          <div style="height: 240px;" ref="videoEcharts"></div>
+        </el-card>
       </div>
     </el-col>
   </el-row>
@@ -47,7 +53,7 @@
 
 <script>
 import {getData} from '../../api/data'
-
+import * as echarts from 'echarts'
 
 export default {
   name: 'home',
@@ -148,7 +154,118 @@ export default {
       const {code,data} = res.data
       if (code === 20000){
         this.tableData = data.tableData
+
+        // 折线图
+        const order = data.orderData;
+        const keyArray = Object.keys(order.data[0])
+        const series = []
+
+        const xData = order.date
+        keyArray.forEach(key =>{
+          series.push({
+            name:key,
+            data: order.data.map(item => item[key]),
+            type:'line'
+          })
+        })
+
+        const option = {
+          xAxis:{
+            data: xData
+          },
+          yAxis:{},
+          legend:{
+            data:keyArray
+          },
+          series
+        }
+        const E = echarts.init(this.$refs.echarts)
+        E.setOption(option)
       }
+
+      // 柱状图
+      const xData = data.userData.map(item => item.date)
+      const userSeries=[
+        {
+          name:"新增用户",
+          data:data.userData.map(item => item.new),
+          type:'bar'
+        },
+        {
+          name:"活跃用户",
+          data:data.userData.map(item => item.active),
+          type:'bar'
+        }
+      ]
+
+      const userOption =  {
+        legend: {
+          // 图例文字颜色
+          textStyle: {
+            color: "#333",
+          },
+        },
+        grid: {
+          left: "20%",
+        },
+        // 提示框
+        tooltip: {
+          trigger: "axis",
+        },
+        xAxis: {
+          type: "category", // 类目轴
+              data: xData,
+              axisLine: {
+            lineStyle: {
+              color: "#17b3a3",
+            },
+            },
+            axisLabel: {
+              interval: 0,
+                  color: "#333",
+            },
+          },
+          yAxis: [
+            {
+              type: "value",
+              axisLine: {
+                lineStyle: {
+                  color: "#17b3a3",
+                },
+              },
+            },
+          ],
+          color: ["#2ec7c9", "#b6a2de"],
+          series: userSeries,
+        }
+
+      const userE = echarts.init(this.$refs.userEcharts)
+      userE.setOption(userOption)
+
+    // 饼状图
+     const videoOption =  {
+        tooltip: {
+          trigger: "item",
+        },
+        color: [
+          "#0f78f4",
+          "#dd536b",
+          "#9462e5",
+          "#a6a6a6",
+          "#e1bb22",
+          "#39c362",
+          "#3ed1cf",
+        ],
+            series: [
+                {
+                  data:data.videoData,
+                  type:'pie'
+                }
+            ],
+      }
+
+      const videoE = echarts.init(this.$refs.videoEcharts)
+      videoE.setOption(videoOption)
     })
     // this.$http.get('/user?ID=12345')
     // .then(function (response) {
